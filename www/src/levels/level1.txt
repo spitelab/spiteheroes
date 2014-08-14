@@ -1,0 +1,92 @@
+// -----[ CAST ]---------------------------------------------
+
+the @level
+    has title "Ruthagard's small chest"
+    has description "Just make sure Ruthagard doesnt put his hands on that small chest!"
+
+the @bob // Bob is a nice name!
+    is hero
+    has name "Ruthagard the valiant"
+    has health 10
+    has brain -10
+    has target @goldkey
+
+the @goldkey
+
+    is key
+    has name "A gold key"
+    has chest @smallchest
+
+the @smallchest
+
+    is chest
+    has name "A small chest"
+    has key @goldkey
+
+the @simpleghost
+
+    is ghost
+    has name "Just a ghost"
+    has target @hero
+
+// -----[ PATHS ]---------------------------------------------
+
+the @board
+
+    // Draw short sinuous path with the key and chest on it
+    goto [0, 0]
+    places @hero
+    drawPath e e e n n e
+    place @goldkey
+    drawPath e e s s s s w w w w
+    place @smallchest
+
+    // and end with the ghost at the end of the corridor
+    drawPath w w w w
+    place @simpleghost
+
+// -----[ DIALOGS ]---------------------------------------------
+
+// Key events
+the @hero
+    when hit
+        says "ouch!"
+
+    when target @smallchest
+        says "Wow... a gold key! Now all I need is a small chest!"
+
+    when dead
+        says "Haaarghh *cough* *cough* *gasp*!"
+
+the @chest
+    when cantOpen
+        the @player
+            says "Nope... this wont budge!"
+
+the @simpleghost
+    when dead
+        says "I hate this job..."
+
+the @level
+    when win
+        the @hero
+            says "Awesome! As always, I win!"
+
+// -----[ INTERACTIONS AND GOALS ]---------------------------------------------
+
+// Key events
+the @hero
+
+    when dead
+        the @level
+            win
+
+    when obtain @goldkey
+        has target @smallchest
+
+the @smallchest
+
+    when open
+        the @level
+            loose
+
