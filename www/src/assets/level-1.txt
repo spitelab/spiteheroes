@@ -1,0 +1,59 @@
+// The cast of this level
+@level
+    !has title "Ruthagard's small chest"
+    !has description "Just make sure Ruthagard doesnt put his hands on that small chest!"
+
+@hero
+    !is *hero
+    !has name "Ruthagard the valiant"
+    !has health 10
+    !has target @goldkey
+
+@goldkey
+    !is *key
+    !has name "A gold key"
+
+@smallchest
+    !is *chest
+    !has name "A small chest"
+
+@simpleghost
+    !is *ghost
+    !has name "Just a ghost"
+    !has target @hero
+
+// Draw short sinuous path with the key and chest on it
+@level
+
+    !go #0-0
+    !place @hero
+    !path e e e n n e
+    !place @goldkey
+    !path e e s s s s w w w w
+    !place @smallchest
+    // and end with the ghost at the end of the corridor
+    !path w w w w
+    !place @simpleghost
+
+
+// Key events
+@hero
+
+    !when dead
+        !win
+
+    !when obtain @goldkey
+        !says "Wow... a gold key! Now all I need is a small chest!"
+        !has target @smallchest
+
+@smallchest
+    !when open
+        !says "Awesome! As always, I win!"
+        !loose
+
+@simpleghost
+
+    !when dead
+        !says "I hate this job..."
+
+

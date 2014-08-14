@@ -1,0 +1,37 @@
+
+# Entities
+
+- hero entity
+- ghost entity ()
+- key entity (obtainable)
+- chest entity (with open event)
+
+Game Mechanics
+
+- level script is loaded and interpreted
+- unknown commands are ignored
+- paths are drawn
+- entities are placed
+- level title and description is show to the user
+- turn by turn cycle starts (no interactions for now)
+- hero agent ai
+- ghost agent ai
+- obtainable object (key)
+- openable item (chest, closed/open state)
+- Win and level ends, next level is loaded
+- Loose and level restarts
+
+# Dungeon Script Commands
+- comments //
+- is
+- has
+- go
+- place
+- path
+- when
+- win
+- loose
+- says
+-
+
+

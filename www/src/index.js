@@ -1,47 +1,66 @@
-// create an new instance of a pixi stage
-var stage = new PIXI.Stage(0x52b352);
 
-// create a renderer instance.
-var renderer = PIXI.autoDetectRenderer(1200, 500);
+window.onload = function() {
 
-// add the renderer view element to the DOM
-document.body.appendChild(renderer.view);
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
+        preload: preload,
+        create: create,
+        update: update
+    });
 
-requestAnimFrame( animate );
+    var level;
 
-// Set the base texture for a scaling mode suitable for pixel-art
-PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
+    function preload () {
 
-// create a texture from an image path
-var texture = PIXI.Texture.fromImage("src/assets/character-skeleton.png");
-// create a new Sprite using the texture
-var bunny = new PIXI.Sprite(texture);
+        game.load.atlasJSONHash('path', 'assets/sprites/sprites.png', 'assets/sprites/sprites.json');
+        game.load.text('levelScript', 'assets/level-1.txt');
 
-// center the sprites anchor point
-bunny.anchor.x = 0.5;
-bunny.anchor.y = 0.5;
+    }
 
-bunny.width = 96;
-bunny.height = 96;
+    function create () {
+        level = new Spite.level();
 
-// move the sprite t the center of the screen
-bunny.position.x = 200;
-bunny.position.y = 150;
+        // Start by loading and running the level script
+        var levelScript = game.getAsset("levelScript");
+        level.runScript(levelScript);
 
-stage.addChild(bunny);
+        // Create the tiles layer for path
 
+        // Create the tiles layer for entities
 
+        // Add mouse events or UI for ZoomIn/Ou
 
-function animate() {
+        // Add mouse event to move board around
 
-    requestAnimFrame( animate );
+        // Constraint board movement to boundaries
 
-    // just for fun, lets rotate mr rabbit a little
-    bunny.rotation += 0.1;
-    // render the stage
-    renderer.render(stage);
-}
+//        skeleton = game.add.tileSprite(0, 0, 800, 600, 'path', 'character-skeleton.png');
 
 
 
+    }
 
+
+
+    function update() {
+
+
+        updatePathTiles(level);
+        updateEntities(level);
+
+    }
+
+    /**
+     * Draw path tiles according to the new level state
+     */
+    function updatePathTiles(level) {
+
+    }
+
+    /**
+     * Draw entities according to the new level state
+     */
+    function updateEntities(level) {
+
+    }
+
+};

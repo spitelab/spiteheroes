@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Spite Heroes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+        }
+    </style>
+    <script src="dungeonScript.js"></script>
+</head>
+<body>
+<script type="text/dungeonScript" id="sample2">
+
+// The cast of this level
+with @level
+    has title "Ruthagard's small chest"
+    has description "Just make sure Ruthagard doesnt put his hands on that small chest!"
+with @bob // Bob is a nice name!
+    is hero
+    has name "Ruthagard the valiant"
+    has health 10
+    has brain -10
+    has target @goldkey
+
+with @goldkey
+
+    is key
+    has name "A gold key"
+
+with @smallchest
+
+    is chest
+    has name "A small chest"
+
+with @simpleghost
+
+    is ghost
+    has name "Just a ghost"
+    has target @hero
+
+// Draw short sinuous path with the key and chest on it
+with @level
+
+    go [0, 0]
+    place @hero
+    path e e e n n e
+    place @goldkey
+    path e e s s s s w w w w
+    place @smallchest
+    // and end with the ghost at the end of the corridor
+    path w w w w
+    place @simpleghost
+
+
+
+
+
+// Key events
+with @hero
+
+    when dead
+        with @level
+            win
+
+    when hit
+        say "ouch!"
+
+    when obtain @goldkey
+        say "Wow... a gold key! Now all I need is a small chest!"
+        has target @smallchest
+
+with @smallchest
+
+    when open
+        with @simpleghost
+            say "Awesome! As always, I win!"
+        with @level
+            loose
+
+with @simpleghost
+
+    when dead
+        say "I hate this job..."
+
+
+
+</script>
+<script>
+    var src = document.getElementById("sample2").innerText;
+    DungeonScript.run(src);
+</script>
+</body>
+</html>
